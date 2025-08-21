@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      author: luchko roman
+      id: create-task-table
+      changes:
+        - createTable:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: priority
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: due_date
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: project_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: assignee_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: bit(1)
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: project_id
+            baseTableName: tasks
+            constraintName: fk_project_tasks
+            referencedTableName: projects
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseColumnNames: assignee_id
+            baseTableName: tasks
+            constraintName: fk_assignee_tasks
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
