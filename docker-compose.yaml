@@ -22,8 +22,7 @@ services:
         condition: service_healthy
     restart: on-failure
     build: .
-    env_file:
-      - .env
+    env_file: .env
     ports:
       - "${SPRING_LOCAL_PORT}:${SPRING_DOCKER_PORT}"
       - "${DEBUG_PORT}:${DEBUG_PORT}"
@@ -35,9 +34,6 @@ services:
           "spring.datasource.password": "${MYSQLDB_PASSWORD}",
           "spring.jpa.hibernate.ddl-auto": "update",
           "jwt.secret": "${JWT_SECRET}",
-          "stripe.secret.key": "${STRIPE_SECRET_KEY}",
-          "telegram.token": "${TELEGRAM_TOKEN}",
-          "telegram.chatId": "${TELEGRAM_CHAT_ID}",
-          "stripe.webhook.endPoint": "${STRIPE_WEBHOOK_SECRET}"
+          "jwt.expiration": ${JWT_EXPIRATION}
         }
       JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${DEBUG_PORT}"

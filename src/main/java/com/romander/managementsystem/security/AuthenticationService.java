@@ -1,7 +1,7 @@
 package com.romander.managementsystem.security;
 
-import com.romander.managementsystem.dto.SignInRequestDto;
-import com.romander.managementsystem.dto.SignInResponseDto;
+import com.romander.managementsystem.dto.user.SignInRequestDto;
+import com.romander.managementsystem.dto.user.SignInResponseDto;
 import com.romander.managementsystem.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +22,7 @@ public class AuthenticationService {
                         signInRequestDto.getEmail(),
                         signInRequestDto.getPassword())
         );
-        String token = jwtCore.generateToken(signInRequestDto.getEmail());
+        String token = jwtCore.generateToken(authentication.getName());
         return new SignInResponseDto(token);
     }
 

@@ -1,4 +1,4 @@
-package com.romander.managementsystem.dto;
+package com.romander.managementsystem.dto.user;
 
 import com.romander.managementsystem.validation.Password;
 import jakarta.validation.constraints.Email;

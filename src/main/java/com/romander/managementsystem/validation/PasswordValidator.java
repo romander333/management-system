@@ -1,6 +1,6 @@
 package com.romander.managementsystem.validation;
 
-import com.romander.managementsystem.dto.SignUpRequestDto;
+import com.romander.managementsystem.dto.user.SignUpRequestDto;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
