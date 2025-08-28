@@ -7,6 +7,7 @@ import com.romander.managementsystem.mapper.ProjectMapper;
 import com.romander.managementsystem.model.Project;
 import com.romander.managementsystem.model.User;
 import com.romander.managementsystem.repository.ProjectRepository;
+import com.romander.managementsystem.repository.UserRepository;
 import com.romander.managementsystem.security.AuthenticationService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,16 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
     private final ProjectRepository projectRepository;
     private final AuthenticationService authenticationService;
+    private final UserRepository userRepository;
 
     @Override
     public ProjectResponseDto create(ProjectRequestDto requestDto) {
         Project project = projectMapper.toModel(requestDto);
+        User user = userRepository.findById(requestDto.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User not found by id: "
+                        + requestDto.getUserId()));
+        project.setUser(user);
+        project.setStatus(Project.Status.INITIATED);
         Project savedProject = projectRepository.save(project);
         return projectMapper.toDto(savedProject);
     }

@@ -10,8 +10,10 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(config = MapperConfig.class)
 public interface ProjectMapper {
+
     Project toModel(ProjectRequestDto requestDto);
 
+    @Mapping(target = "userId", source = "user.id")
     ProjectResponseDto toDto(Project project);
 
     @Mapping(target = "id", ignore = true)
